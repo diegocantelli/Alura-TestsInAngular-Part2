@@ -16,12 +16,15 @@ export class LikeWidgetComponent implements OnInit {
   constructor(private uniqueIdService: UniqueIdService) {}
 
   public ngOnInit(): void {
+    console.log('ngInit')
+    console.log('this.likes', this.likes)
     if (!this.id) {
       this.id = this.uniqueIdService.generateUniqueIdWithPrefix('like-widget');
     }
   }
 
   public like(): void {
+    console.log(this.likes)
     this.liked.emit();
   }
 

@@ -9,7 +9,7 @@ export class PhotoFrameComponent{
   @Output() liked: EventEmitter<void> = new EventEmitter();
   @Input() description = '';
   @Input() src = '';
-  @Input() likes = '';
+  @Input() likes = 0;
 
   public like(): void {
     this.liked.emit();
