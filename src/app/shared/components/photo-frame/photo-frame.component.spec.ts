@@ -63,4 +63,18 @@ describe(PhotoFrameComponent.name, () => {
     const element: HTMLElement = fixture.nativeElement.querySelector('span')
     expect(element.getAttribute('aria-label')).toBe('0: people liked')
   })
+
+  it('(DOM) Should display image with src and description when bound to properties', () => {
+    const description = 'some description'
+    const src = 'http://somesite.com/img.jpg'
+
+    component.src = src
+    component.description = description
+
+    fixture.detectChanges()
+    const img: HTMLImageElement = fixture.nativeElement.querySelector('img')
+
+    expect(component.src).toBe(src)
+    expect(component.description).toBe(description)
+  })
 })
