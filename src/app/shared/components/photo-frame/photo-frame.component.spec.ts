@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { PhotoFrameComponent } from './photo-frame.component';
 import { PhotoFrameModule } from './photo-frame.module';
 
@@ -17,5 +17,28 @@ describe(PhotoFrameComponent.name, () => {
 
   it('Should create component', () => {
     expect(component).toBeTruthy();
-  })
+  });
+
+  it('Should trigger (@Output like) once when called multiple times within debounce time', fakeAsync(() => {
+    fixture.detectChanges();
+    let times = 0;
+    //Primeiro é necessário fazer o subscribe para quando o like() for chamado o codigo dentro do subscribe ser executado
+    component.liked.subscribe(() => times++);
+    component.like();
+    component.like();
+    tick(500)
+    expect(times).toBe(1)
+  }))
+
+  it('Should trigger (@Output like) two times called multiple times outised debounce time', fakeAsync(() => {
+    fixture.detectChanges();
+    let times = 0;
+    //Primeiro é necessário fazer o subscribe para quando o like() for chamado o codigo dentro do subscribe ser executado
+    component.liked.subscribe(() => times++);
+    component.like();
+    tick(500)
+    component.like();
+    tick(500)
+    expect(times).toBe(2)
+  }))
 })
