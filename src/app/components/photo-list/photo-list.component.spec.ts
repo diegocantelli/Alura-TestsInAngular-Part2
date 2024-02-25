@@ -27,12 +27,34 @@ describe
   })
 
   it('Should display board when data arrives', () => {
-    fixture.detectChanges()
     const photos = buildPhotosList()
 
     spyOn(service, 'getPhotos')
       .and
       .returnValue(of(photos))
 
+    fixture.detectChanges()
+
+    const board = fixture.nativeElement.querySelector('app-photo-board')
+    const loader = fixture.nativeElement.querySelector('.loader')
+
+    expect(board).not.toBeNull()
+    expect(loader).toBeNull()
+  })
+
+  it('Should display loader while waiting data to arrive', () => {
+    const photos = buildPhotosList()
+
+    spyOn(service, 'getPhotos')
+      .and
+      .returnValue(of(photos))
+
+    fixture.detectChanges()
+
+    const board = fixture.nativeElement.querySelector('app-photo-board')
+    const loader = fixture.nativeElement.querySelector('.loader')
+
+    expect(board).toBeNull()
+    expect(loader).not.toBeNull()
   })
 })
