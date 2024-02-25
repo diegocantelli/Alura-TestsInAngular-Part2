@@ -3,6 +3,8 @@ import { PhotoListComponent } from './photo-list.component';
 import { PhotoListModule } from './photo-list.module';
 import { HttpClientModule } from '@angular/common/http';
 import { PhotoBoardService } from 'src/app/shared/components/photo-board/services/photo-board.service';
+import { buildPhotosList } from 'src/app/shared/components/photo-board/test/build-photo-list';
+import { of } from 'rxjs';
 
 describe
 (PhotoListComponent.name, () => {
@@ -25,6 +27,12 @@ describe
   })
 
   it('Should display board when data arrives', () => {
-    expect(component).toBeTruthy()
+    fixture.detectChanges()
+    const photos = buildPhotosList()
+
+    spyOn(service, 'getPhotos')
+      .and
+      .returnValue(of(photos))
+
   })
 })
